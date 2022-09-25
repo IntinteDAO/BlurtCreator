@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>BLURT Account Creation</title>
+    <script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+    <!--<script src='https://www.google.com/recaptcha/api.js' async defer></script>-->
+  </head>
+  <body>
+  <div class="container">
+    <div class="row">
+	<div class="col-12">
+    		<center><h1>BLURT Account Creation</h1></center>
+    	</div>
+    	<div class="col-12">
+    	        <h3>Create account</h3>
+    	</div>
+    	<div class="col-12">
+    		BLURT Account Username
+    		<form id="form_id" method="POST" action="creator.php">
+    		<input id="username" type="text" class="form-control" name="username" minlength="3" maxlength="16"/>
+    		<p class="text-muted">Enter the BLURT username you want to create. 16 Characters Max.</p>
+    		Your E-mail address
+    		<input type="email" class="form-control" name="email" minlength="3" maxlength="32"/>
+    		<p></p>
+    		Password:
+    		<input id="password" type="text" class="form-control" minlength="3" maxlength="32"/>
+    		<p class="text-muted">Password of the new account. Please save it somewhere safe before you create the account.</p>
+    		Captcha verification
+		  <div class="g-recaptcha" data-sitekey="5baa63f4-fc77-4d8f-84c2-53fa41d69719"></div>
+		  <input type="button" onclick="checkRecaptcha();" value="Create Account" class="btn btn-success btn-block"></input>
+		  <input id="posting" type="hidden" name="posting" value="">
+		  <input id="owner" type="hidden" name="owner" value="">
+		  <input id="active" type="hidden" name="active" value="">
+		  <input id="memo" type="hidden" name="memo" value="">
+		  <button id="sent" type="submit" style="background: transparent;border: none !important;"></button>
+    		</form>
+    		<br><br>
+    		<iframe data-aa='2074280' loading='lazy' src='//ad.a-ads.com/2074280?size=728x90' style='width:728px; height:90px; border:0px; padding:0; overflow:hidden; background-color: transparent;'></iframe>
+    	</div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/dsteem@^0.10.1/dist/dsteem.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@blurtfoundation/blurtjs/dist/blurt.min.js"></script>
+  <script src="libs/js/blurt.js"></script>
+  <script> 
+function checkRecaptcha() {
+  let username = document.getElementById("username").value
+  let master = document.getElementById("password").value
+  let keys = blurt.auth.generateKeys(username, master, ['owner', 'active', 'posting', 'memo']);
+  document.getElementById("posting").value = keys["posting"]
+  document.getElementById("owner").value = keys["owner"]
+  document.getElementById("active").value = keys["active"]
+  document.getElementById("memo").value = keys["memo"]
+  var response = grecaptcha.getResponse();
+  if(response.length == 0) {
+    alert("Captcha has not been executed correctly.");
+  }
+  else {
+    document.getElementById("sent").click();
+  }
+}
+</script>
+  </body>
+</html>
