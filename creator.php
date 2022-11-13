@@ -54,7 +54,7 @@ function is_already_on_blurt($nick) {
 
 
 if(!empty($_POST['username']) && !empty($_POST['posting']) && !empty($_POST['owner']) && !empty($_POST['active']) && !empty($_POST['memo'])) {
-	$preg_result = preg_match('/^[a-z]{3,16}$/', $_POST['username']);
+	$preg_result = preg_match('/^[a-z]{5,16}$/', $_POST['username']);
 	if($preg_result==1) {
 		$is_on_blurt = is_already_on_blurt($_POST['username']);
 		if($is_on_blurt==0) {
